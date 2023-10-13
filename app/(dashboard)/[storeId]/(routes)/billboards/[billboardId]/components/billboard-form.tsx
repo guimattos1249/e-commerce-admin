@@ -22,7 +22,6 @@ const formSchema = z.object({
   imageUrl: z.string().min(1),
 });
 
-
 type BillboardFormValue = z.infer<typeof formSchema>;
 
 interface BillboardFormProps { 
@@ -73,7 +72,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       setOpen(true);
       await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`);
       router.refresh();
-      router.push("/");
+      router.push(`/${params.storeId}/billboards`);
       toast.success("Billboard deleted.")
     } catch (error) {
       toast.error("Make sure you removed all products and categories using this billboard first.");
@@ -147,7 +146,6 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
           </Button>
         </form>
       </Form>
-      <Separator />
     </>
   )
 }
