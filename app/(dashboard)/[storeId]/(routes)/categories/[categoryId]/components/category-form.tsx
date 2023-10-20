@@ -51,9 +51,9 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const title = initialData ? "Edit category" :  "Create category";
-  const description = initialData ? "Edit a category" :  "Add a new category";
-  const toastMessage = initialData ? "category updated" :  "category created";
+  const title = initialData ? "Edit Category" :  "Create category";
+  const description = initialData ? "Edit a Category" :  "Add a new Category";
+  const toastMessage = initialData ? "Category updated" :  "Category created";
   const action = initialData ? "Save Changes" : "Create";
 
   const form = useForm<CategoryFormValue>({
@@ -68,12 +68,12 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
     try {
       setLoading(true);
       if (initialData) {
-        await axios.patch(`/api/${params.storeId}/billboards/${params.billboardId}`, data);
+        await axios.patch(`/api/${params.storeId}/categories/${params.categoryId}`, data);
       } else {
-        await axios.post(`/api/${params.storeId}/billboards`, data);
+        await axios.post(`/api/${params.storeId}/categories`, data);
       }
       router.refresh();
-      router.push(`/${params.storeId}/billboards`)
+      router.push(`/${params.storeId}/categories`)
       toast.success(toastMessage);
     } catch (error) {
       toast.error("Something went wrong.")
@@ -85,12 +85,12 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
   const onDelete = async () => {
     try {
       setOpen(true);
-      await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`);
+      await axios.delete(`/api/${params.storeId}/categories/${params.categoryId}`);
       router.refresh();
-      router.push(`/${params.storeId}/billboards`);
-      toast.success("Billboard deleted.")
+      router.push(`/${params.storeId}/categories`);
+      toast.success("Category deleted.")
     } catch (error) {
-      toast.error("Make sure you removed all products and categories using this billboard first.");
+      toast.error("Make sure you removed all products using this category first.");
     } finally {
       setLoading(false);
       setOpen(false)
